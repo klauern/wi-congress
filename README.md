@@ -1,4 +1,4 @@
-# wi-senate
+# wi-congress
 
 Fun toy project to get data from the [Wisconsin State Legislature](https://docs.legis.wisconsin.gov/feed) RSS feeds.
 
