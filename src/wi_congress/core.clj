@@ -17,3 +17,9 @@
                     (:intros-and-committee-all feeds))))
 
 (def tagged-xml (xml/parse (java.io.StringReader. sample-xml)))
+
+;; would like to find/write methods to retrieve:
+;;  - top-level elements
+;;  - frequency of element calls
+;;  - some tree-like structure of the XML element
+;;  - general inspection utilities for xml
