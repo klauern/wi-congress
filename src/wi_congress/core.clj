@@ -1,7 +1,11 @@
 (ns wi-congress.core
   (:require [clj-http.client :as http]
-            [clojure.data.xml :as xml]
-            [datomic.api :as d])
+            ;;[clojure.data.xml :as xml]
+            ;;[clojure.zip :as zip]
+            [datomic.api :as d]
+            [clojure.data.zip :as zip]
+            [clojure.data.zip.xml :as xml]
+            [clojure.walk :as walk])
   (:use     [clojure.pprint]))
 
 (def feeds { :intros-and-committee-all "https://docs.legis.wisconsin.gov/feed/custom/floor"
@@ -14,17 +18,18 @@
              :floor-actions-senate "https://docs.legis.wisconsin.gov/feed/custom/allfloor/senate"
              :floor-actions-assembly "https://docs.legis.wisconsin.gov/feed/custom/allfloor/assembly" })
 
-(def sample-xml (:body 
-                  (http/get
-                    (:intros-and-committee-senate feeds))))
-
-(def tagged-xml (xml/parse (java.io.StringReader. sample-xml)))
+(def tagged-xml (clojure.xml/parse (:intros-and-committee-senate feeds)))
 
 (def raw-map (zipmap (keys tagged-xml) (vals tagged-xml)))
 
+(def tzip (clojure.zip/xml-zip tagged-xml))
 
-;; would like to find/write methods to retrieve:
-;;  - top-level elements
-;;  - frequency of element calls
-;;  - some tree-like structure of the XML element
-;;  - general inspection utilities for xml
+(def mapping (xml/xml-> tzip :channel :item))
+
+(count mapping)
+
+(def one (nth mapping 25))
+
+(first one)
+
+(first (:content (first one)))

@@ -6,4 +6,5 @@
   :dependencies [[org.clojure/clojure "1.4.0"]
                  [clj-http "0.5.3"]
                  [org.clojure/data.xml "0.0.6"]
+                 [org.clojure/data.zip "0.1.1"]
                  [com.datomic/datomic-free "0.8.3470"]])
