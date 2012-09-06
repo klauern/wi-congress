@@ -18,7 +18,11 @@
              :floor-actions-senate "https://docs.legis.wisconsin.gov/feed/custom/allfloor/senate"
              :floor-actions-assembly "https://docs.legis.wisconsin.gov/feed/custom/allfloor/assembly" })
 
+(def local-data (clojure.java.io/resource "intros-and-committees-senate.rss"))
+
+
 (def tagged-xml (clojure.xml/parse (:intros-and-committee-senate feeds)))
+
 
 (def raw-map (zipmap (keys tagged-xml) (vals tagged-xml)))
 
