@@ -21,19 +21,45 @@
 (def local-data (clojure.java.io/resource "intros-and-committees-senate.rss"))
 
 
-(def tagged-xml (clojure.xml/parse (:intros-and-committee-senate feeds)))
+(def tagged-xml (clojure.xml/parse (clojure.java.io/input-stream (clojure.java.io/resource "intros-and-committees-senate.rss"))))
 
 
 (def raw-map (zipmap (keys tagged-xml) (vals tagged-xml)))
 
 (def tzip (clojure.zip/xml-zip tagged-xml))
 
-(def mapping (xml/xml-> tzip :channel :item))
+(def mapping (xml/xml-> tzip :channel :item :guid))
 
 (count mapping)
 
 (def one (nth mapping 25))
 
-(first one)
-
 (first (:content (first one)))
+
+(def random-title
+  (first (:content (ffirst 
+    (xml/xml-> tzip :channel :item :title)))))
+
+(defn guid [rss pos]
+  (first (:content (first (nth
+                     (xml/xml-> rss :channel :item :guid) pos)))))
+
+(defn link [rss pos]
+  (first (:content (first (nth
+                     (xml/xml-> rss :channel :item :link) pos))))
+  
+  )
+
+(defn item-field
+  "Get a field from an RSS Feed given the root RSS feed, position element, and tag to retrieve. Some
+tags to retrieve are:
+
+  - guid
+  - link
+  - title
+  - description
+  - pubdate
+  - a10:updated"
+  [rss pos tag]
+  (first (:content (first (nth
+                            (xml/xml-> rss :channel :item tag) pos)))))
