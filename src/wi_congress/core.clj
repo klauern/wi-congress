@@ -61,5 +61,5 @@ tags to retrieve are:
   - pubdate
   - a10:updated"
   [rss pos tag]
-  (first (:content (first (nth
-                            (xml/xml-> rss :channel :item tag) pos)))))
+  (xml/text (nth
+              (xml/xml-> rss :channel :item tag) pos)))
