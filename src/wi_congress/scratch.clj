@@ -16,8 +16,7 @@
 (def item (get mapping 1))
 
 
-
-(def one (nth mapping 25))
+(def one (nth mapping 0))
 
 
 
