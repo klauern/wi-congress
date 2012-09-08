@@ -5,7 +5,8 @@
             [datomic.api :as d]
             [clojure.data.zip :as zip]
             [clojure.data.zip.xml :as xml]
-            [clojure.walk :as walk])
+            [clojure.walk :as walk]
+            [lanterna.screen :as s])
   (:use     [clojure.pprint]))
 
 (def feeds { :intros-and-committee-all "https://docs.legis.wisconsin.gov/feed/custom/floor"
@@ -58,3 +59,19 @@ tags to retrieve are:
 
 (defn random-feed [rss]
   (shuffle (xml/xml-> rss :channel :item)))
+
+
+;; printing a feed item
+(defn console-print-feed-item [item]
+  (let [guid (xml/xml1-> item :guid xml/text)
+        link (xml/xml1-> item :link xml/text)
+        title (xml/xml1-> item :title xml/text)
+        description (xml/xml1-> item :description xml/text)
+        pubdate (xml/xml1-> item :pubdate xml/text)
+        updated (xml/xml1-> item :a10:updated xml/text)]
+    (println "Feed " guid 
+             " on " pubdate 
+             " last updated on " updated 
+             "\n\t" link 
+             "\nTitle: " title
+             "\nDescription: " description)))

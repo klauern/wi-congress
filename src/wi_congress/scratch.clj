@@ -10,10 +10,18 @@
 
 (def rss (clojure.zip/xml-zip tagged-xml))
 
-(def mapping (xml/xml-> rss :channel :item :guid))
+(def mapping (xml/xml1-> rss :channel :item))
 
 (count mapping)
+(def item (get mapping 1))
+
+
 
 (def one (nth mapping 25))
+
+
+
+(count one)
+
 
 (first (:content (first one)))
