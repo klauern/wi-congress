@@ -3,15 +3,16 @@
             [clojure.data.zip :as zip]
             [clojure.data.zip.xml :as xml]))
 
-(def feeds { :intros-and-committee-all "https://docs.legis.wisconsin.gov/feed/custom/floor"
-             :intros-and-committee-senate "https://docs.legis.wisconsin.gov/feed/custom/floor/senate"
-             :intros-and-committee-assembly "https://docs.legis.wisconsin.gov/feed/custom/floor/assembly"
-             :actions-related-to-committee-all "https://docs.legis.wisconsin.gov/feed/custom/committee"
-             :actions-related-to-committee-senate "https://docs.legis.wisconsin.gov/feed/custom/committee/senate"
+(def feeds { :intros-and-committee-all              "https://docs.legis.wisconsin.gov/feed/custom/floor"
+             :intros-and-committee-senate           "https://docs.legis.wisconsin.gov/feed/custom/floor/senate"
+             :intros-and-committee-assembly         "https://docs.legis.wisconsin.gov/feed/custom/floor/assembly"
+             :actions-related-to-committee-all      "https://docs.legis.wisconsin.gov/feed/custom/committee"
+             :actions-related-to-committee-senate   "https://docs.legis.wisconsin.gov/feed/custom/committee/senate"
              :actions-related-to-committee-assembly "https://docs.legis.wisconsin.gov/feed/custom/committee/assembly"
-             :floor-actions-all "https://docs.legis.wisconsin.gov/feed/custom/allfloor"
-             :floor-actions-senate "https://docs.legis.wisconsin.gov/feed/custom/allfloor/senate"
-             :floor-actions-assembly "https://docs.legis.wisconsin.gov/feed/custom/allfloor/assembly" })
+             :floor-actions-all                     "https://docs.legis.wisconsin.gov/feed/custom/allfloor"
+             :floor-actions-senate                  "https://docs.legis.wisconsin.gov/feed/custom/allfloor/senate"
+             :floor-actions-assembly                "https://docs.legis.wisconsin.gov/feed/custom/allfloor/assembly"
+             })
 
 (defn random-feed []
   ((-> 
@@ -19,25 +20,6 @@
      shuffle
      first) 
     feeds))
-
-
-(defn- load-xml [raw-data]
-  (clojure.zip/xml-zip (clojure.xml/parse raw-data)))
-
-(defn retrieve-rss-from-source [location]
-  (load-xml (clojure.java.io/resource (.toString location))))
-
-(def local-data (clojure.java.io/resource "intros-and-committees-senate.rss"))
-
-(def possible-rss-items #{:guid :link :title :description :pubdate :a10:updated})
-
-(def tagged-xml (clojure.xml/parse (clojure.java.io/input-stream (clojure.java.io/resource "intros-and-committees-senate.rss"))))
-
-(def rss (clojure.zip/xml-zip tagged-xml))
-
-(def mapping (xml/xml1-> rss :channel :item))
-
-
 
 (defn rss-zipify 
   "Taking a loction, read the data in, parse it to XML, and turn it into an XML zip" 
@@ -53,8 +35,17 @@
     clojure.java.io/resource
     rss-zipify))
 
+
+;; TODO: not sure how to retrieve the first few items from this if there are a huge number.
+;; everything I've done is through the REPL, which--when I try to get the value from it--
+;; evaluates the entire sequence, which takes forever, if it doesn't bomb out completely.
 (defn get-items [rss]
   (xml/xml1-> rss :channel :item))
+
+
+;; (def local-data (clojure.java.io/resource "intros-and-committees-senate.rss"))
+
+(def possible-rss-items #{:guid :link :title :description :pubdate :a10:updated})
 
 (defn item-field
   "Get a field from an RSS Feed given the root RSS feed, position element, and tag to retrieve. Some

@@ -12,3 +12,6 @@
 
 (fact "retrieving an rss feed returns a zipper"
       (type rss-zipper) => clojure.lang.PersistentVector)
+
+(fact "can retrieve a list of rss items"
+      ())

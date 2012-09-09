@@ -1,27 +1,16 @@
 (ns wi-congress.scratch
-  (:require [clojure.data.zip.xml :as xml])
-  (:use [wi-congress.core]))
+  (:require [clojure.data.zip.xml :as xml]
+            [clojure.data.zip :as z])
+  (:use [wi-congress.rss]))
 
 
-(def tagged-xml (clojure.xml/parse (clojure.java.io/input-stream (clojure.java.io/resource "intros-and-committees-senate.rss"))))
+(def feed (rss-zipify (random-feed)))
 
-(def rss (clojure.zip/xml-zip tagged-xml))
-
-(def mapping (xml/xml1-> rss :channel :item))
-
-
-(def raw-map (zipmap (keys tagged-xml) (vals tagged-xml)))
-
-
-(count mapping)
-(def item (get mapping 0))
-
-
-(def one (nth mapping 0))
+(def items (xml/xml1-> feed :channel :item z/children-auto))
 
 
 
-(count one)
+;; (def mapping (xml/xml1-> rss :channel :item))
 
 
-(first (:content (first one)))
+;;(def raw-map (zipmap (keys tagged-xml) (vals tagged-xml)))
