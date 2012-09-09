@@ -2,7 +2,7 @@
   (:require [lanterna.screen :as s]
             [lanterna.terminal :as t]
             [clojure.data.zip.xml :as xml]
-            [wi-congress.core :as core]))
+            [wi-congress.rss :as rss]))
 ;; Note: alot of this is borrowed heavily as inspiration from Steve Losh's
 ;; Caves of Clojure series: http://stevelosh.com/blog/
 ;; Also, his lanterna wrapper is awesome, try it
@@ -11,16 +11,6 @@
 
 (def term (t/get-terminal :swing))
 
-(t/start term)
-
-(t/put-character term \!)
-
-(def put-character-to-term (partial t/put-character term))
-(def write #(dorun (map put-character-to-term %)))
-
-;; TODO: fix
-(defn get-random-feed-items [source]
-  (core/retrieve-rss-from-source (first (shuffle (keys core/feeds)))))
 
 ;; printing a feed item
 (defn console-print-feed-item [item]

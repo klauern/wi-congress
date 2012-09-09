@@ -7,4 +7,10 @@
                  [clj-http "0.5.3"]
                  [org.clojure/data.xml "0.0.6"]
                  [org.clojure/data.zip "0.1.1"]
-                 [clojure-lanterna "0.9.2"]])
+                 [clojure-lanterna "0.9.2"]
+                 [midje "1.4.0" :scope "test"]
+                 [expectations "1.4.5" :scope "test"]
+                 [com.stuartsierra/lazytest "1.2.3" :scope "test"]]
+  :repositories [["stuart" "http://stuartsierra.com/maven2"]]
+  :plugins      [[lein-expectations "0.0.8"]]
+  )
