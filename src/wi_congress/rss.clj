@@ -32,16 +32,13 @@
 (defn rss-zipify-file
   [file-location]
   (-> file-location
-    .toString
     clojure.java.io/resource
+    .toString
     rss-zipify))
 
 
-;; TODO: not sure how to retrieve the first few items from this if there are a huge number.
-;; everything I've done is through the REPL, which--when I try to get the value from it--
-;; evaluates the entire sequence, which takes forever, if it doesn't bomb out completely.
 (defn get-items [rss]
-  (xml/xml1-> rss :channel :item z/node))
+  (xml/xml-> rss :channel :item z/node))
 
 
 ;; (def local-data (clojure.java.io/resource "intros-and-committees-senate.rss"))

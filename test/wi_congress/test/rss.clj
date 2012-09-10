@@ -13,5 +13,7 @@
 (fact "retrieving an rss feed returns a zipper"
       (type rss-zipper) => clojure.lang.PersistentVector)
 
-(fact "can retrieve a list of rss items"
-      ())
+(defonce floor "floor.rss")
+
+(fact "can retrieve a list of rss items from file"
+      (type (rss-zipify-file floor)) => clojure.lang.PersistentVector)
