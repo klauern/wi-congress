@@ -41,7 +41,7 @@
 ;; everything I've done is through the REPL, which--when I try to get the value from it--
 ;; evaluates the entire sequence, which takes forever, if it doesn't bomb out completely.
 (defn get-items [rss]
-  (xml/xml1-> rss :channel :item :guid))
+  (xml/xml1-> rss :channel :item z/node))
 
 
 ;; (def local-data (clojure.java.io/resource "intros-and-committees-senate.rss"))
