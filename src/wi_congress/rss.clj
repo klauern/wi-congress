@@ -1,6 +1,7 @@
 (ns wi-congress.rss
   (:require [clojure.java.io :as io]
             [clojure.data.zip :as zip]
+            [clojure.zip :as z]
             [clojure.data.zip.xml :as xml]))
 
 (def feeds { :intros-and-committee-all              "https://docs.legis.wisconsin.gov/feed/custom/floor"
@@ -40,7 +41,7 @@
 ;; everything I've done is through the REPL, which--when I try to get the value from it--
 ;; evaluates the entire sequence, which takes forever, if it doesn't bomb out completely.
 (defn get-items [rss]
-  (xml/xml1-> rss :channel :item))
+  (xml/xml1-> rss :channel :item :guid))
 
 
 ;; (def local-data (clojure.java.io/resource "intros-and-committees-senate.rss"))
