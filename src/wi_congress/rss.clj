@@ -37,10 +37,7 @@
 
 
 (defn get-items [rss]
-  (xml/xml-> rss :channel :item z/node))
-
-
-;; (def local-data (clojure.java.io/resource "intros-and-committees-senate.rss"))
+  (xml/xml-> rss :channel :item))
 
 (def possible-rss-items #{:guid :link :title :description :pubdate :a10:updated})
 
