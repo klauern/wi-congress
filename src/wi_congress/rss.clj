@@ -16,11 +16,10 @@
              })
 
 (defn random-feed []
-  ((-> 
-     (keys feeds)
-     shuffle
-     first) 
-    feeds))
+  (-> 
+    (vals feeds)
+    shuffle
+    first))
 
 (defn rss-zipify 
   "Taking a loction, read the data in, parse it to XML, and turn it into an XML zip" 
