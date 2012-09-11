@@ -9,9 +9,9 @@
                  [org.clojure/data.zip "0.1.1"]
                  [clojure-lanterna "0.9.2"]
                  [midje "1.4.0" :scope "test"]
-                 [lein-midje "2.0.0-SNAPSHOT"]
                  [expectations "1.4.5" :scope "test"]
                  [com.stuartsierra/lazytest "1.2.3" :scope "test"]]
   :repositories [["stuart" "http://stuartsierra.com/maven2"]]
-  :plugins      [[lein-expectations "0.0.8"]]
+  :plugins      [[lein-expectations "0.0.8"]
+                 [lein-midje "2.0.0-SNAPSHOT"]]
   )
