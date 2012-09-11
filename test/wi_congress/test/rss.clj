@@ -35,4 +35,5 @@
     </item>"))))
 
 
-(def xml-thing-item (clojure.zip/xml-zip (clojure.xml/parse xml-thing)))
+(def xml-thing-item (clojure.zip/xml-zip (clojure.xml/parse xml-thing)))      (count (take 5 (get-items (rss-zipify-file floor)))) => 5
+      (xml/xml1-> (nth (get-items (rss-zipify-file floor)) 2) :guid xml/text)=> "0e30f9f8-b58e-44b8-9239-9ac775f900ba")
