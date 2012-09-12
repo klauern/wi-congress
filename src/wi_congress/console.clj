@@ -14,15 +14,16 @@
 
 ;; printing a feed item
 (defn console-print-feed-item [item]
-  (let [guid (xml/xml1-> item :guid xml/text)
-        link (xml/xml1-> item :link xml/text)
-        title (xml/xml1-> item :title xml/text)
+  (let [guid        (xml/xml1-> item :guid xml/text)
+        link        (xml/xml1-> item :link xml/text)
+        title       (xml/xml1-> item :title xml/text)
         description (xml/xml1-> item :description xml/text)
-        pubdate (xml/xml1-> item :pubdate xml/text)
-        updated (xml/xml1-> item :a10:updated xml/text)]
     (t/put-string "Feed " guid 
+        pubdate     (xml/xml1-> item :pubdate xml/text)
+    (t/put-string term (str "Feed " guid 
              " on " pubdate 
-             " last updated on " updated 
-             "\n\t" link 
              "\nTitle: " title
-             "\nDescription: " description)))
+             " last updated on " updated))
+    (t/put-string term link)
+    (t/put-string term (str "Title: " title))
+    (t/put-string term (str "Description: " description))))
