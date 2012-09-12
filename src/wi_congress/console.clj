@@ -9,8 +9,12 @@
 
 (def screen-size (ref [142 50]))
 
-(def term (t/get-terminal :swing))
+(defn handle-resize [cols rows]
+  (dosync (ref-set screen-size [cols rows])))
 
+(def term (t/get-terminal :swing {:cols (first @screen-size)
+                                  :rows (second @screen-size)
+                                  :resize-listener handle-resize}))
 
 ;; printing a feed item
 (defn console-print-feed-item [item]
