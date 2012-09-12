@@ -39,6 +39,14 @@
 (defn get-items [rss]
   (xml/xml-> rss :channel :item))
 
+(defn get-item-map [item]
+  { :guid        (xml/xml1-> item :guid xml/text)
+    :link        (xml/xml1-> item :link xml/text)
+    :title       (xml/xml1-> item :title xml/text)
+    :description (xml/xml1-> item :description xml/text)
+    :pubdate     (xml/xml1-> item :pubDate xml/text)
+    :updated     (xml/xml1-> item :a10:updated xml/text)})
+
 (def possible-rss-items #{:guid :link :title :description :pubdate :a10:updated})
 
 (defn item-field
