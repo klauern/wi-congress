@@ -7,7 +7,7 @@
 ;; Caves of Clojure series: http://stevelosh.com/blog/
 ;; Also, his lanterna wrapper is awesome, try it
 
-(def screen-size [160 50])
+(def screen-size (ref [142 50]))
 
 (def term (t/get-terminal :swing))
 
