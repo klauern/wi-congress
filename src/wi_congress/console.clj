@@ -22,12 +22,8 @@
 
 ;; printing a feed item
 (defn console-print-feed-item [item]
-  (let [guid        (xml/xml1-> item :guid xml/text)
-        link        (xml/xml1-> item :link xml/text)
-        title       (xml/xml1-> item :title xml/text)
-        description (xml/xml1-> item :description xml/text)
-        pubdate     (xml/xml1-> item :pubdate xml/text)
-        updated     (xml/xml1-> item :a10:updated xml/text)]
+  (let [item-map (rss/get-item-map item)
+        {:keys [guid link title description pubdate updated]} item-map]
     (t/put-string term (str "Feed " guid 
              " on " pubdate 
              " last updated on " updated))
