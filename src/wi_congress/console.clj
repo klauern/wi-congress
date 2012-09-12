@@ -9,6 +9,10 @@
 
 (def screen-size (ref [142 50]))
 
+;; I actually can't believe I have to keep track of this... 
+(def cursor (ref [0 0]))
+
+
 (defn handle-resize [cols rows]
   (dosync (ref-set screen-size [cols rows])))
 
