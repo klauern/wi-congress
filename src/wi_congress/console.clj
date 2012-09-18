@@ -7,6 +7,11 @@
 ;; Caves of Clojure series: http://stevelosh.com/blog/
 ;; Also, his lanterna wrapper is awesome, try it
 
+(defrecord ScreenSize [width height])
+(defrecord Position [x-pos y-pos])
+
+(defrecord Console [^ScreenSize screen-size ^Position cursor])
+
 (def screen-size (ref [142 50]))
 
 ;; I actually can't believe I have to keep track of this... 
@@ -16,17 +21,17 @@
 (defn handle-resize [cols rows]
   (dosync (ref-set screen-size [cols rows])))
 
-(def term (t/get-terminal :swing {:cols (first @screen-size)
+(def screen (s/get-screen :swing {:cols (first @screen-size)
                                   :rows (second @screen-size)
                                   :resize-listener handle-resize}))
 
 ;; printing a feed item
-(defn console-print-feed-item [item]
+(defn console-print-feed-item [screen x y item]
   (let [item-map (rss/get-item-map item)
         {:keys [guid link title description pubdate updated]} item-map]
-    (t/put-string term (str "Feed " guid 
+    (s/put-string screen x y (str "Feed " guid 
              " on " pubdate 
              " last updated on " updated))
-    (t/put-string term link)
-    (t/put-string term (str "Title: " title))
-    (t/put-string term (str "Description: " description))))
+    (s/put-string screen x (+ y 1) link)
+    (s/put-string screen x (+ y 2) (str "Title: " title))
+    (s/put-string screen x (+ y 3) (str "Description: " description))))

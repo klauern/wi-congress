@@ -11,6 +11,6 @@
 (def second-one (nth rss-items 1))
 
 (fact "can print a feed item to console"
-      (console-print-feed-item second-one) => nil
+      (console-print-feed-item screen 0 0 second-one) => nil
       @screen-size => [142 50])
 
