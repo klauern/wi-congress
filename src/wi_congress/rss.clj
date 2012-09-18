@@ -15,25 +15,30 @@
              :floor-actions-assembly                "https://docs.legis.wisconsin.gov/feed/custom/allfloor/assembly"
              })
 
-(defn random-feed []
+;; I suppose I don't need this right away, do I?
+(defrecord RssItem [guid link title description pubdate updated])
+
+(defn random-feed 
+  "Produce a random feed URL from the list of provided feeds"
+  []
   (-> 
     (vals feeds)
     shuffle
     first))
 
-(defn rss-zipify 
+(defn rss-slurp
   "Taking a loction, read the data in, parse it to XML, and turn it into an XML zip" 
   [location]
   (-> location
     clojure.xml/parse
     clojure.zip/xml-zip))
 
-(defn rss-zipify-file
+(defn rss-slurp-file
   [file-location]
   (-> file-location
     clojure.java.io/resource
     .toString
-    rss-zipify))
+    rss-slurp))
 
 
 (defn get-items [rss]
@@ -46,6 +51,16 @@
     :description (xml/xml1-> item :description xml/text)
     :pubdate     (xml/xml1-> item :pubDate xml/text)
     :updated     (xml/xml1-> item :a10:updated xml/text)})
+
+(defn get-item-map-from-list [rss-items pos]
+  (let [item (nth rss-items pos)
+        item-map (get-item-map item)]
+    item-map))
+
+(defn get-nth-item-map-from-feed [^String feed-name ^Integer pos]
+  (let [items (get-items feed-name)
+        item-map (get-item-map-from-list items pos)]
+    item-map))
 
 (def possible-rss-items #{:guid :link :title :description :pubdate :a10:updated})
 

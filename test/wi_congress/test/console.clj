@@ -1,11 +1,11 @@
 (ns wi-congress.test.console
   (:use midje.sweet
         wi-congress.console
-        [wi-congress.rss :only (rss-zipify-file get-items)])
+        [wi-congress.rss :only (rss-slurp-file get-items)])
   (:require [lanterna.terminal :as t]))
 
 (def rss-items (-> "floor.rss"
-                 rss-zipify-file
+                 rss-slurp-file
                  get-items))
 
 (def second-one (nth rss-items 1))

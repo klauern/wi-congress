@@ -6,7 +6,7 @@
 
 (def feed (random-feed))
 
-(def rss-zipper (rss-zipify feed))
+(def rss-zipper (rss-slurp feed))
 
 (fact "rss feeds can be retrieved randomly"
       (random-feed) => (has-prefix #"https://")
@@ -15,7 +15,7 @@
 (fact "retrieving an rss feed returns a zipper"
       (type rss-zipper) => clojure.lang.PersistentVector)
 
-(def floor (rss-zipify-file "floor.rss"))
+(def floor (rss-slurp-file "floor.rss"))
 
 (fact "can retrieve a list of rss items from file"
       (type floor) => clojure.lang.PersistentVector
@@ -31,3 +31,6 @@
         (:link item) => "https://docs.legis.wisconsin.gov/2011/proposals/sb576"
         (:description item) => "Read first time and referred to <a href=\"https://docs.legis.wisconsin.gov/2011/committees/534\">committee</a> on Senate Organization<br/>Relating to: battery requirements for smoke detectors."))
 
+(fact "can create map of indexed individual rss items"
+      (let [item (get-nth-item-map-from-feed floor 2)]
+        (:guid item) => "0e30f9f8-b58e-44b8-9239-9ac775f900ba"))

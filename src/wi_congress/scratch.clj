@@ -5,7 +5,7 @@
   (:import java.io.ByteArrayInputStream))
 
 
-(def feed (rss-zipify (random-feed)))
+(def feed (rss-slurp (random-feed)))
 
 (def items (xml/xml1-> feed :channel :item z/children-auto))
 
@@ -21,7 +21,7 @@
       <a10:updated>2012-03-15T00:00:00-05:00</a10:updated>
     </item>"))))
 
-(def items (get-items (rss-zipify xml-thing)))
+(def items (get-items (rss-slurp xml-thing)))
 
 ;(def xml-thing-item (clojure.zip/xml-zip (clojure.xml/parse xml-thing)))
 
