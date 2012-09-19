@@ -30,7 +30,7 @@
 (defn rss-slurp
   "Taking a loction, read the data in, parse it to XML, and turn it into an XML zip" 
   [location]
-  (-> location
+  (-> location                    
     clojure.xml/parse
     clojure.zip/xml-zip))
 
@@ -59,24 +59,5 @@
     item-map))
 
 (defn get-nth-item-map-from-feed [^String feed-name ^Integer pos]
-  (let [items (get-items feed-name)
-        item-map (get-item-map-from-list items pos)]
-    item-map))
-
-(def possible-rss-items #{:guid :link :title :description :pubdate :a10:updated})
-
-(defn item-field
-  "Get a field from an RSS Feed given the root RSS feed, position element, and tag to retrieve. Some
-tags to retrieve are:
-
-  - guid
-  - link
-  - title
-  - description
-  - pubdate
-  - a10:updated"
-  [rss pos tag]
-  {:pre [(contains? possible-rss-items tag)
-         (>= 0 pos)]}
-  (xml/text (nth
-              (xml/xml-> rss :channel :item tag) pos)))
+  (let [items (get-items feed-name)]
+    (get-item-map-from-list items pos)))
