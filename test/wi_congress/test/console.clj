@@ -3,7 +3,7 @@
         [wi-congress.rss :only (rss-slurp-file get-items)]
         wi-congress.core)
   (:require [lanterna.screen :as s]
-            [wi-congress.console :as console]))
+            [wi-congress.console.core :as console]))
 
 (def rss-items (-> "floor.rss"
                  rss-slurp-file

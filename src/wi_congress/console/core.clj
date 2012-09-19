@@ -1,4 +1,4 @@
-(ns wi-congress.console
+(ns wi-congress.console.core
   (:require [lanterna.screen :as s]
             [lanterna.terminal :as t]
             [clojure.data.zip.xml :as xml]
