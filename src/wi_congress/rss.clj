@@ -2,7 +2,8 @@
   (:require [clojure.java.io :as io]
             [clojure.data.zip :as zip]
             [clojure.zip :as z]
-            [clojure.data.zip.xml :as xml]))
+            [clojure.data.zip.xml :as xml]
+            [fs.core :as fs]))
 
 (def feeds { :intros-and-committee-all              "https://docs.legis.wisconsin.gov/feed/custom/floor"
              :intros-and-committee-senate           "https://docs.legis.wisconsin.gov/feed/custom/floor/senate"
