@@ -25,3 +25,30 @@
     (s/put-string screen x (+ y 1) link)
     (s/put-string screen x (+ y 2) (str "Title: " title))
     (s/put-string screen x (+ y 3) (str "Description: " description))))
+
+
+(defn print-welcome
+  [screen]
+  (s/clear screen)
+  (s/put-string screen 0 0 "Welcome")
+  (s/redraw screen))
+
+(def key-chart ["Keyboard Shortcuts:"
+                "-------------------"
+                "  l: list RSS feeds"
+                "  n: next rss item"
+                "  r: random feed"
+                "  x: exit"])
+
+(defn print-key-chart [screen x y key-chart]
+  (loop [y-pos y
+         keys key-chart]
+    (s/put-string screen x y-pos (first keys))
+    (if (nil? (next keys))
+      (s/redraw screen)
+      (recur (+ 1 y-pos) (next keys)))))
+
+(defn print-status-bar [screen info]
+  (let [bar-row (dec (second (s/get-size screen)))]
+    (s/put-string screen 0 bar-row info))
+  (s/redraw screen))
