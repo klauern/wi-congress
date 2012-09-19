@@ -19,3 +19,8 @@
 (def screen (s/get-screen :swing {:cols (first @screen-size)
                                   :rows (second @screen-size)
                                   :resize-listener handle-resize}))
+
+(defn -main
+  "WI Congress RSS reader Console App Main"
+  [& args]
+  (s/start screen))

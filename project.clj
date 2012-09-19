@@ -15,4 +15,5 @@
   :repositories [["stuart" "http://stuartsierra.com/maven2"]]
   :plugins      [[lein-expectations "0.0.8"]
                  [lein-midje "2.0.0-SNAPSHOT"]]
+  :main wi-congress.core
   )
