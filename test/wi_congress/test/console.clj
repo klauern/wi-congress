@@ -14,5 +14,4 @@
 
 (fact "can print a feed item to console"
       (console/print-feed-item screen 0 0 second-one) => nil
-      @screen-size => [142 50])
-
+      (s/get-size screen) => [142 50])

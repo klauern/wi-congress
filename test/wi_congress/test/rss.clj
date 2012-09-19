@@ -32,5 +32,5 @@
         (:description item) => "Read first time and referred to <a href=\"https://docs.legis.wisconsin.gov/2011/committees/534\">committee</a> on Senate Organization<br/>Relating to: battery requirements for smoke detectors."))
 
 (fact "can create map of indexed individual rss items"
-      (let [item (get-nth-item-map-from-feed floor 2)]
+      (let [item (nth-rss-item floor 2)]
         (:guid item) => "0e30f9f8-b58e-44b8-9239-9ac775f900ba"))

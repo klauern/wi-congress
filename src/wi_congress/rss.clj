@@ -41,7 +41,6 @@
     .toString
     rss-slurp))
 
-
 (defn get-items [rss]
   (xml/xml-> rss :channel :item))
 
@@ -53,11 +52,13 @@
     :pubdate     (xml/xml1-> item :pubDate xml/text)
     :updated     (xml/xml1-> item :a10:updated xml/text)})
 
-(defn get-item-map-from-list [rss-items pos]
+(defn rss-item 
+  [rss-items pos]
   (let [item (nth rss-items pos)
         item-map (get-item-map item)]
     item-map))
 
-(defn get-nth-item-map-from-feed [^String feed-name ^Integer pos]
+(defn nth-rss-item 
+  [^String feed-name ^Integer pos]
   (let [items (get-items feed-name)]
-    (get-item-map-from-list items pos)))
+    (rss-item items pos)))
