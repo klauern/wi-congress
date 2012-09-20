@@ -58,7 +58,7 @@
         item-map (get-item-map item)]
     item-map))
 
-(defn nth-rss-item 
+(defn nth-item-from-feed 
   [^String feed-name ^Integer pos]
   (let [items (get-items feed-name)]
     (rss-item items pos)))
